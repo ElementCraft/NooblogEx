@@ -35,6 +35,11 @@ public class Admin {
     @Column(length = 20)
     private String name;
 
+    /**
+     * 账号状态
+     */
+    private Integer status;
+
     @OneToMany
     @JoinColumn(name = "admin_id")
     private Set<AdminLog> adminLogs;
