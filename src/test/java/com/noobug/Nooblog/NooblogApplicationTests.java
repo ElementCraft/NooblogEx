@@ -40,6 +40,30 @@ public class NooblogApplicationTests {
     @Test
     public void AdminTest() throws Exception {
 
+        /*新增管理员接口*/
+        req = POST("/api/admin/add")
+                .param("account", "Test" + System.currentTimeMillis() % 10000000)
+                .param("name", "测试用")
+                .param("password", "test123")
+                .characterEncoding("utf8");
+        mock.perform(req)
+                .andExpect(jsonPath("success").value(true));
+
+        req = POST("/api/admin/add")
+                .param("account", "admin")
+                .param("name", "测试用")
+                .param("password", "te");
+        mock.perform(req)
+                .andExpect(jsonPath("code").value(1));
+
+        req = POST("/api/admin/add")
+                .param("account", "adm")
+                .param("name", "测试用")
+                .param("password", "te")
+                .characterEncoding("utf8");
+        mock.perform(req)
+                .andExpect(jsonPath("code").value(2));
+        //===========================================================
         req = POST("/api/admin/login")
                 .param("account", "admin")
                 .param("password", "admin123");
@@ -48,7 +72,7 @@ public class NooblogApplicationTests {
 
         req = POST("/api/admin/logout");
         mock.perform(req)
-                .andExpect(jsonPath("success").value(true));
+                .andExpect(jsonPath("$").isNotEmpty());
 
         req = GET("/api/admin/all");
         mock.perform(req)

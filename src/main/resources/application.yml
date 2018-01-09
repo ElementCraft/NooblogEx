@@ -8,7 +8,7 @@ spring:
   # MySQL 配置项
   #
   datasource:
-    url: jdbc:mysql://119.23.149.25:3306/nooblog_ex?autoReconnect=true
+    url: jdbc:mysql://119.23.149.25:3306/nooblog_ex?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
     username: root
     password: Daedalus@130
     initial-size: 5
