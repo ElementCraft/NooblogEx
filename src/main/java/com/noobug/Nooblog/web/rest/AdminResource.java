@@ -51,11 +51,12 @@ public class AdminResource {
 
     /**
      * 新增管理员
+     *
      * @param admin
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<BaseDTO> add(Admin admin){
+    public ResponseEntity<BaseDTO> add(Admin admin) {
         BaseDTO result = adminService.addNewAdmin(admin);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -63,6 +64,7 @@ public class AdminResource {
 
     /**
      * 所有管理员
+     *
      * @return
      */
     @GetMapping("/all")

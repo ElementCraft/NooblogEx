@@ -8,31 +8,29 @@ import redis.clients.jedis.Jedis;
 
 @Component
 @Slf4j
-public class RedisUtils
-{
-	@Autowired
-	private JedisConnectionFactory jedisConnectionFactory;
+public class RedisUtils {
+    @Autowired
+    private JedisConnectionFactory jedisConnectionFactory;
 
-	private Jedis conn;
+    private Jedis conn;
 
-	/**
-	 * 关闭连接
-	 */
-	public void close()
-	{
-		if(conn != null) conn.close();
-	}
+    /**
+     * 关闭连接
+     */
+    public void close() {
+        if (conn != null) conn.close();
+    }
 
-	/**
-	 * 获取Jedis连接的实例
-	 * @return jedis实例
-	 */
-	public Jedis getConnection()
-	{
-		if (conn==null || !conn.isConnected())
-			conn = jedisConnectionFactory.getShardInfo().createResource();
+    /**
+     * 获取Jedis连接的实例
+     *
+     * @return jedis实例
+     */
+    public Jedis getConnection() {
+        if (conn == null || !conn.isConnected())
+            conn = jedisConnectionFactory.getShardInfo().createResource();
 
-		return conn;
-	}
+        return conn;
+    }
 
 }

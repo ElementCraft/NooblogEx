@@ -17,12 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.noobug.Nooblog.constants.Consts.KEY_SESSION_ADMIN;
+
 @Service
 @Transactional
 @Slf4j
 public class AdminService {
 
-    private final static String KEY_SESSION_ADMIN = "admin";
 
     @Autowired
     private AdminRepository adminRepository;
@@ -81,6 +82,7 @@ public class AdminService {
 
     /**
      * 获取所有的管理员
+     *
      * @return
      */
     public List<Admin> getAllAdmins() {
@@ -90,6 +92,7 @@ public class AdminService {
 
     /**
      * 新增管理员
+     *
      * @param admin 管理员obj
      * @return
      */
@@ -99,7 +102,7 @@ public class AdminService {
 
         BaseDTO result = AdminValidate.validate(admin);
 
-        if(!result.getSuccess()) return result;
+        if (!result.getSuccess()) return result;
 
         admin.setStatus(AdminStatus.NORMAL.getKey());
         admin.setPassword(Utils.MD5(admin.getPassword()));

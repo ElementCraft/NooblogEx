@@ -17,17 +17,20 @@
             <div class="layui-logo">管理员后台</div>
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
+
+                <li class="layui-nav-item" th:if="${session.admin ne null}">
                     <a href="javascript:;">
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img" />
-                        贤心
+                        <span th:text="${session.admin.getName()}"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="">基本资料</a></dd>
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退了</a></li>
+                <li class="layui-nav-item">
+                    <a id="btnAdminLogout" href="#">注销</a>
+                </li>
             </ul>
         </div>
 
@@ -48,9 +51,21 @@
     </div>
     <script>
         //JavaScript代码区域
-        layui.use('element', function(){
+        layui.use(['element','layer'], function(){
             var element = layui.element;
+            var layer = layui.layer;
+            var $ = layui.jquery;
 
+            $("#btnAdminLogout").on("click", function(e){
+                e.preventDefault();
+
+                var load = layer.load(1);
+                $.post("/api/admin/logout", function(data){
+                    layer.close(load);
+                    window.location.href = "/adminLogin";
+                    return false;
+                });
+            });
         });
     </script>
 </body>

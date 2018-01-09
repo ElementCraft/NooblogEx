@@ -7,6 +7,7 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     /**
      * 通过账号查找
+     *
      * @param account 账号
      * @return 唯一结果
      */

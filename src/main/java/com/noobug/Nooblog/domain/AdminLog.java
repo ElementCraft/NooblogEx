@@ -22,7 +22,7 @@ public class AdminLog {
     /**
      * 管理员外键
      */
-    @ManyToOne(cascade = {CascadeType.REMOVE,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private Admin admin;
 
     /**

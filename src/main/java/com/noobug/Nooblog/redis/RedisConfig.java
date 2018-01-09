@@ -22,52 +22,52 @@ import java.lang.reflect.Method;
 
 @Configuration
 @EnableCaching
-public class RedisConfig extends CachingConfigurerSupport
-{
-	@Bean
-	public KeyGenerator wiselyKeyGenerator(){
-		return new KeyGenerator() {
-			@Override
-			public Object generate(Object target, Method method, Object... params) {
-				StringBuilder sb = new StringBuilder();
-				sb.append(target.getClass().getName());
-				sb.append(method.getName());
-				for (Object obj : params) {
-					sb.append(obj.toString());
-				}
-				return sb.toString();
-			}
-		};
+public class RedisConfig extends CachingConfigurerSupport {
+    @Bean
+    public KeyGenerator wiselyKeyGenerator() {
+        return new KeyGenerator() {
+            @Override
+            public Object generate(Object target, Method method, Object... params) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(target.getClass().getName());
+                sb.append(method.getName());
+                for (Object obj : params) {
+                    sb.append(obj.toString());
+                }
+                return sb.toString();
+            }
+        };
 
-	}
+    }
 
-	@Bean
-	public CacheManager cacheManager(
-		@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
-		return new RedisCacheManager(redisTemplate);
-	}
+    @Bean
+    public CacheManager cacheManager(
+            @SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
+        return new RedisCacheManager(redisTemplate);
+    }
 
-	/**
-	 * RedisTemplate配置
-	 * @param factory
-	 * @return
-	 */
-	@Bean
-	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
-		StringRedisTemplate template = new StringRedisTemplate(factory);
-		//定义key序列化方式
-		//RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-		//定义value的序列化方式
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-		ObjectMapper om = new ObjectMapper();
-		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-		jackson2JsonRedisSerializer.setObjectMapper(om);
+    /**
+     * RedisTemplate配置
+     *
+     * @param factory
+     * @return
+     */
+    @Bean
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+        StringRedisTemplate template = new StringRedisTemplate(factory);
+        //定义key序列化方式
+        //RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+        //定义value的序列化方式
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
 
-		//template.setKeySerializer(redisSerializer);
-		template.setValueSerializer(jackson2JsonRedisSerializer);
-		template.setHashValueSerializer(jackson2JsonRedisSerializer);
-		template.afterPropertiesSet();
-		return template;
-	}
+        //template.setKeySerializer(redisSerializer);
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
 }

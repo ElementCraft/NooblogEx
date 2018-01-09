@@ -8,4 +8,6 @@ public final class Consts {
     public final static Integer ADMIN_PASSWORD_LEN_MAX = 24;
     public final static Integer ADMIN_NAME_LEN_MAX = 12;
 
+    public final static String KEY_SESSION_ADMIN = "admin";
+
 }
