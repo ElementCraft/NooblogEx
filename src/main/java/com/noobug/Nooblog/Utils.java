@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 public class Utils {
 
     /**
-     * MD5加密
+     * MD5加密(大写）
      *
      * @param s 原字符串
      * @return 加密后字符串

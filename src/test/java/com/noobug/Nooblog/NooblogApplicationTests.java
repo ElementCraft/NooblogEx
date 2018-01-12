@@ -59,8 +59,7 @@ public class NooblogApplicationTests {
         req = POST("/api/admin/add")
                 .param("account", "adm")
                 .param("name", "测试用")
-                .param("password", "te")
-                .characterEncoding("utf8");
+                .param("password", "te");
         mock.perform(req)
                 .andExpect(jsonPath("code").value(2));
         //===========================================================
