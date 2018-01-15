@@ -5,6 +5,9 @@ import com.noobug.Nooblog.domain.dto.BaseDTO;
 import com.noobug.Nooblog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,7 @@ public class UserResource {
 
     /**
      * 新增用户
+     *
      * @param user 用户实体
      * @return
      */
@@ -42,5 +46,18 @@ public class UserResource {
     public List<User> all() {
 
         return userService.getAllUsers();
+    }
+
+    /**
+     * 用户列表
+     *
+     * @param page 第几页
+     * @param size 页面大小
+     * @return
+     */
+    @GetMapping("/list")
+    public Page<User> list(int page, int size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+        return userService.getUsersPage(pageRequest);
     }
 }

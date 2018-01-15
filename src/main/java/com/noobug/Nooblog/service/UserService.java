@@ -13,6 +13,8 @@ import com.noobug.Nooblog.repository.UserRepository;
 import com.noobug.Nooblog.validate.AdminValidate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +41,15 @@ public class UserService {
 
     public BaseDTO addNewUser(User user) {
         return null;
+    }
+
+    /**
+     * 获取用户分页列表
+     *
+     * @param pageRequest
+     * @return
+     */
+    public Page<User> getUsersPage(PageRequest pageRequest) {
+        return userRepository.findAll(pageRequest);
     }
 }
